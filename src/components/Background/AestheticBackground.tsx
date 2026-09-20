@@ -1,15 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { BACKGROUND_THEMES, BackgroundTheme } from '../../data/backgroundThemes';
+import {
+  BACKGROUND_THEMES,
+  BackgroundTheme,
+  PAGE_BACKGROUND_MAP,
+} from '../../data/backgroundThemes';
 import { safeStorage } from '../../utils/security';
+import { useGame } from '../../context/GameContext';
 
 export const AestheticBackground: React.FC = () => {
-  const [currentThemeId, setCurrentThemeId] = useState<string>(() => {
-    return safeStorage.getItem('gitquest_bg_theme', 'neo-tokyo');
+  const { activeTab } = useGame();
+
+  const [mode, setMode] = useState<'dynamic' | 'fixed'>(() => {
+    return (safeStorage.getItem('gitquest_bg_mode', 'dynamic') as 'dynamic' | 'fixed') || 'dynamic';
+  });
+
+  const [fixedThemeId, setFixedThemeId] = useState<string>(() => {
+    return safeStorage.getItem('gitquest_bg_theme', 'codedex-twilight');
   });
 
   const [opacity, setOpacity] = useState<number>(() => {
-    const saved = safeStorage.getItem('gitquest_bg_opacity', '0.22');
-    return parseFloat(saved) || 0.22;
+    const saved = safeStorage.getItem('gitquest_bg_opacity', '0.24');
+    return parseFloat(saved) || 0.24;
   });
 
   const [blur, setBlur] = useState<number>(() => {
@@ -19,10 +30,12 @@ export const AestheticBackground: React.FC = () => {
 
   useEffect(() => {
     const handleUpdate = () => {
-      const themeId = safeStorage.getItem('gitquest_bg_theme', 'neo-tokyo');
-      const op = parseFloat(safeStorage.getItem('gitquest_bg_opacity', '0.22')) || 0.22;
+      const savedMode = (safeStorage.getItem('gitquest_bg_mode', 'dynamic') as 'dynamic' | 'fixed') || 'dynamic';
+      const themeId = safeStorage.getItem('gitquest_bg_theme', 'codedex-twilight');
+      const op = parseFloat(safeStorage.getItem('gitquest_bg_opacity', '0.24')) || 0.24;
       const bl = parseInt(safeStorage.getItem('gitquest_bg_blur', '0'), 10) || 0;
-      setCurrentThemeId(themeId);
+      setMode(savedMode);
+      setFixedThemeId(themeId);
       setOpacity(op);
       setBlur(bl);
     };
@@ -31,18 +44,24 @@ export const AestheticBackground: React.FC = () => {
     return () => window.removeEventListener('gitquest_bg_updated', handleUpdate);
   }, []);
 
+  // Determine active theme based on dynamic page mapping or user fixed preference
+  const targetThemeId = mode === 'dynamic' 
+    ? (PAGE_BACKGROUND_MAP[activeTab] || 'codedex-twilight')
+    : fixedThemeId;
+
   const activeTheme =
-    BACKGROUND_THEMES.find((t) => t.id === currentThemeId) || BACKGROUND_THEMES[0];
+    BACKGROUND_THEMES.find((t) => t.id === targetThemeId) || BACKGROUND_THEMES[0];
 
   return (
     <div
       aria-hidden="true"
-      className="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none transition-all duration-700"
+      className="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none"
     >
-      {/* 1. Underlying Base Background Image */}
+      {/* 1. Underlying Base Background Image with Smooth Crossfade */}
       {activeTheme.image ? (
         <div
-          className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+          key={activeTheme.id}
+          className="absolute inset-0 transition-opacity duration-1000 ease-in-out animate-fade-in"
           style={{
             backgroundImage: `url(${activeTheme.image})`,
             backgroundPosition: 'center',
@@ -60,8 +79,8 @@ export const AestheticBackground: React.FC = () => {
       )}
 
       {/* 2. Top & Bottom Atmospheric Vignette Gradients for Text Contrast */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0B0F17]/80 via-transparent to-[#0B0F17]/95" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0B0F17]/60 via-transparent to-[#0B0F17]/60" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0B0F17]/85 via-transparent to-[#0B0F17]/95" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#0B0F17]/65 via-transparent to-[#0B0F17]/65" />
 
       {/* 3. Subtle Cyber Scanline / Ambient Pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.15),rgba(255,255,255,0))]" />

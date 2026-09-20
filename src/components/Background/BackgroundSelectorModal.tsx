@@ -8,8 +8,14 @@ import {
   RotateCcw,
   Eye,
   Layers,
+  Wand2,
+  Lock,
 } from 'lucide-react';
-import { BACKGROUND_THEMES, BackgroundTheme } from '../../data/backgroundThemes';
+import {
+  BACKGROUND_THEMES,
+  BackgroundTheme,
+  PAGE_BACKGROUND_MAP,
+} from '../../data/backgroundThemes';
 import { safeStorage } from '../../utils/security';
 import { playClickSound, playLevelUpSound } from '../../utils/audio';
 import { useGame } from '../../context/GameContext';
@@ -23,15 +29,19 @@ export const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = (
   isOpen,
   onClose,
 }) => {
-  const { soundEnabled } = useGame();
+  const { soundEnabled, activeTab } = useGame();
+
+  const [mode, setMode] = useState<'dynamic' | 'fixed'>(() => {
+    return (safeStorage.getItem('gitquest_bg_mode', 'dynamic') as 'dynamic' | 'fixed') || 'dynamic';
+  });
 
   const [selectedThemeId, setSelectedThemeId] = useState<string>(() => {
-    return safeStorage.getItem('gitquest_bg_theme', 'neo-tokyo');
+    return safeStorage.getItem('gitquest_bg_theme', 'codedex-twilight');
   });
 
   const [opacity, setOpacity] = useState<number>(() => {
-    const saved = safeStorage.getItem('gitquest_bg_opacity', '0.22');
-    return parseFloat(saved) || 0.22;
+    const saved = safeStorage.getItem('gitquest_bg_opacity', '0.24');
+    return parseFloat(saved) || 0.24;
   });
 
   const [blur, setBlur] = useState<number>(() => {
@@ -41,9 +51,18 @@ export const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = (
 
   if (!isOpen) return null;
 
+  const handleSelectMode = (newMode: 'dynamic' | 'fixed') => {
+    if (soundEnabled) playClickSound();
+    setMode(newMode);
+    safeStorage.setItem('gitquest_bg_mode', newMode);
+    window.dispatchEvent(new Event('gitquest_bg_updated'));
+  };
+
   const handleSelectTheme = (theme: BackgroundTheme) => {
     if (soundEnabled) playClickSound();
     setSelectedThemeId(theme.id);
+    setMode('fixed');
+    safeStorage.setItem('gitquest_bg_mode', 'fixed');
     safeStorage.setItem('gitquest_bg_theme', theme.id);
     window.dispatchEvent(new Event('gitquest_bg_updated'));
   };
@@ -62,18 +81,23 @@ export const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = (
 
   const handleResetDefaults = () => {
     if (soundEnabled) playClickSound();
-    const defaultOp = 0.22;
+    const defaultOp = 0.24;
     const defaultBl = 0;
+    setMode('dynamic');
     setOpacity(defaultOp);
     setBlur(defaultBl);
+    safeStorage.setItem('gitquest_bg_mode', 'dynamic');
     safeStorage.setItem('gitquest_bg_opacity', defaultOp.toString());
     safeStorage.setItem('gitquest_bg_blur', defaultBl.toString());
     window.dispatchEvent(new Event('gitquest_bg_updated'));
   };
 
+  // Determine active theme on the current page
+  const currentPageThemeId = PAGE_BACKGROUND_MAP[activeTab] || 'codedex-twilight';
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in select-none font-mono text-xs">
-      <div className="relative w-full max-w-3xl rounded-2xl bg-[#090D15] border-2 border-dev-border/90 p-5 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+      <div className="relative w-full max-w-4xl rounded-2xl bg-[#090D15] border-2 border-dev-border/90 p-5 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-between pb-3 border-b border-dev-border/70">
           <div className="flex items-center gap-3">
@@ -90,7 +114,7 @@ export const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = (
                 </span>
               </div>
               <p className="text-[11px] text-dev-subtext mt-0.5">
-                Customize your anime cyberpunk coding backdrop & ambient contrast.
+                8K anime aesthetic coding backdrops uniquely tailored for each quest zone.
               </p>
             </div>
           </div>
@@ -103,17 +127,78 @@ export const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = (
           </button>
         </div>
 
+        {/* Mode Selector: Dynamic vs Fixed */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 rounded-xl bg-[#06090F] border border-dev-border/80">
+          {/* Dynamic Option */}
+          <button
+            onClick={() => handleSelectMode('dynamic')}
+            className={`p-3 rounded-lg border text-left transition-all flex items-start gap-3 ${
+              mode === 'dynamic'
+                ? 'bg-purple-950/40 border-purple-400 text-white shadow-lg shadow-purple-950/50 ring-1 ring-purple-400/50'
+                : 'bg-dev-surface/30 border-dev-border/60 text-dev-subtext hover:text-white hover:border-dev-border'
+            }`}
+          >
+            <div className="p-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-300 shrink-0">
+              <Wand2 className="w-4 h-4" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2 font-bold text-xs text-dev-heading">
+                <span>Unique Per-Page (Recommended)</span>
+                {mode === 'dynamic' && (
+                  <span className="px-1.5 py-0.2 rounded bg-purple-500 text-black text-[9px] font-bold">
+                    ACTIVE
+                  </span>
+                )}
+              </div>
+              <p className="text-[10.5px] text-dev-subtext mt-1 leading-snug">
+                Automatically switches to unique aesthetic anime wallpapers as you navigate (Codédex Twilight Bridge on Home, Neo-Tokyo on Build, Cosmic Void on Branches, etc.).
+              </p>
+            </div>
+          </button>
+
+          {/* Fixed Option */}
+          <button
+            onClick={() => handleSelectMode('fixed')}
+            className={`p-3 rounded-lg border text-left transition-all flex items-start gap-3 ${
+              mode === 'fixed'
+                ? 'bg-blue-950/40 border-blue-400 text-white shadow-lg shadow-blue-950/50 ring-1 ring-blue-400/50'
+                : 'bg-dev-surface/30 border-dev-border/60 text-dev-subtext hover:text-white hover:border-dev-border'
+            }`}
+          >
+            <div className="p-2 rounded-lg bg-blue-500/20 border border-blue-500/30 text-blue-300 shrink-0">
+              <Lock className="w-4 h-4" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2 font-bold text-xs text-dev-heading">
+                <span>Fixed Single Wallpaper</span>
+                {mode === 'fixed' && (
+                  <span className="px-1.5 py-0.2 rounded bg-blue-500 text-black text-[9px] font-bold">
+                    ACTIVE
+                  </span>
+                )}
+              </div>
+              <p className="text-[10.5px] text-dev-subtext mt-1 leading-snug">
+                Lock your favorite aesthetic wallpaper to remain constant across all pages and labs.
+              </p>
+            </div>
+          </button>
+        </div>
+
         {/* Wallpaper Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
           {BACKGROUND_THEMES.map((theme) => {
-            const isSelected = theme.id === selectedThemeId;
+            const isCurrentlyActive =
+              mode === 'dynamic'
+                ? theme.id === currentPageThemeId
+                : theme.id === selectedThemeId;
+
             return (
               <div
                 key={theme.id}
                 onClick={() => handleSelectTheme(theme)}
                 className={`group relative rounded-xl border-2 overflow-hidden cursor-pointer transition-all duration-300 flex flex-col justify-between ${
-                  isSelected
-                    ? 'border-purple-400/90 shadow-[0_0_20px_rgba(168,85,247,0.35)] ring-2 ring-purple-400/40'
+                  isCurrentlyActive
+                    ? 'border-purple-400/90 shadow-[0_0_20px_rgba(168,85,247,0.35)] ring-2 ring-purple-400/40 bg-[#090D15]'
                     : 'border-dev-border/70 hover:border-git-blue/60 bg-[#06090F]'
                 }`}
               >
@@ -136,22 +221,20 @@ export const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = (
                     {theme.tag}
                   </div>
 
-                  {/* Active Checkmark Pill */}
-                  {isSelected && (
+                  {/* Active Pill */}
+                  {isCurrentlyActive && (
                     <div className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-purple-500 text-black font-bold text-[9px] flex items-center gap-1 shadow-md">
                       <Check className="w-3 h-3" />
-                      <span>ACTIVE</span>
+                      <span>{mode === 'dynamic' ? 'ON PAGE' : 'LOCKED'}</span>
                     </div>
                   )}
                 </div>
 
                 {/* Info Container */}
                 <div className="p-3 space-y-1 bg-[#090D15]">
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-[11px] text-dev-heading group-hover:text-purple-300 transition-colors">
-                      {theme.name}
-                    </span>
-                  </div>
+                  <span className="font-bold text-[11px] text-dev-heading group-hover:text-purple-300 transition-colors line-clamp-1">
+                    {theme.name}
+                  </span>
                   <div className="text-[10px] text-purple-300 font-bold">
                     {theme.japanese}
                   </div>
@@ -201,7 +284,7 @@ export const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = (
             />
             <div className="flex justify-between text-[9px] text-dev-subtext/60">
               <span>Subtle (5%)</span>
-              <span className="text-purple-400 font-bold">Recommended (22%)</span>
+              <span className="text-purple-400 font-bold">Recommended (24%)</span>
               <span>Vivid (45%)</span>
             </div>
           </div>
