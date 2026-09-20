@@ -25,6 +25,7 @@ import { NotificationItem } from '../components/Notifications/AnimeNotification'
 export type TabType =
   | 'home'
   | 'curriculum'
+  | 'flow-guide'
   | 'learning-map'
   | 'missions'
   | 'practice-lab'

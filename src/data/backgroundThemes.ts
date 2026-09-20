@@ -97,6 +97,7 @@ export const BACKGROUND_THEMES: BackgroundTheme[] = [
  */
 export const PAGE_BACKGROUND_MAP: Record<string, string> = {
   home: 'codedex-twilight',        // Codédex Twilight Bridge with Tokyo Tower & Sakura
+  'flow-guide': 'orbital-satellite', // Orbital Space Station for Local-to-Cloud Flow Guide
   missions: 'neo-tokyo',           // Neo-Tokyo Cyberpunk Git Engine
   'branch-lab': 'cosmic-void',     // Cosmic Branching Void
   'conflict-lab': 'crimson-conflict', // Crimson Clash for Merge Conflicts

@@ -20,6 +20,7 @@ import { AnimeNotification } from './components/Notifications/AnimeNotification'
 import { AuthModal } from './components/Auth/AuthModal';
 import { GitIntroAnimation } from './components/Intro/GitIntroAnimation';
 import { AestheticBackground } from './components/Background/AestheticBackground';
+import { FlowGuidePage } from './pages/FlowGuidePage';
 import { TOPICS_CURRICULUM } from './data/curriculum';
 
 const AppContent: React.FC = () => {
@@ -52,6 +53,8 @@ const AppContent: React.FC = () => {
     switch (activeTab) {
       case 'home':
         return <Home />;
+      case 'flow-guide':
+        return <FlowGuidePage />;
       case 'curriculum':
         return (
           <CourseView

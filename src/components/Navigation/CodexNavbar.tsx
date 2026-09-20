@@ -20,6 +20,7 @@ import {
   Bell,
   User,
   Image as ImageIcon,
+  Workflow,
 } from 'lucide-react';
 import { useGame, TabType } from '../../context/GameContext';
 import { InventoryModal } from '../Inventory/InventoryModal';
@@ -64,6 +65,7 @@ export const CodexNavbar: React.FC = () => {
 
   const navLinks: Array<{ id: TabType; label: string; icon: React.FC<{ className?: string }> }> = [
     { id: 'home', label: 'Learn', icon: BookOpen },
+    { id: 'flow-guide', label: 'Flow Guide', icon: Workflow },
     { id: 'world-map', label: 'Journey', icon: Map },
     { id: 'missions', label: 'Build', icon: Gamepad2 },
     { id: 'branch-lab', label: 'Branches', icon: Compass },
