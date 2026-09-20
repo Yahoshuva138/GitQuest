@@ -3,6 +3,7 @@ import { User, Sparkles } from 'lucide-react';
 import { useGame } from '../../context/GameContext';
 import { ANIME_CHARACTERS } from '../../data/animeCharacters';
 import { playClickSound } from '../../utils/audio';
+import { safeStorage, sanitizeUsername } from '../../utils/security';
 
 interface AnimeProfileCardProps {
   onOpenProfileModal: () => void;
@@ -13,12 +14,12 @@ export const AnimeProfileCard: React.FC<AnimeProfileCardProps> = ({
 }) => {
   const { level, playerTitle, soundEnabled } = useGame();
 
-  // Get active anime character from localStorage or default to Sakura Coder
-  const activeCharId = localStorage.getItem('gitquest_anime_char') || 'sakura-coder';
+  // Get active anime character from safeStorage or default to Sakura Coder
+  const activeCharId = safeStorage.getItem('gitquest_anime_char', 'sakura-coder');
   const character =
     ANIME_CHARACTERS.find((c) => c.id === activeCharId) || ANIME_CHARACTERS[0];
 
-  const username = localStorage.getItem('gitquest_username') || 'yahoshuva138';
+  const username = sanitizeUsername(safeStorage.getItem('gitquest_username', 'yahoshuva138'));
 
   const handleClick = () => {
     if (soundEnabled) playClickSound();

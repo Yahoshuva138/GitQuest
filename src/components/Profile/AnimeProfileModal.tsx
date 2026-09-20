@@ -3,6 +3,7 @@ import { X, Check, Sparkles, User, Shield, Zap } from 'lucide-react';
 import { ANIME_CHARACTERS, AnimeCharacter } from '../../data/animeCharacters';
 import { useGame } from '../../context/GameContext';
 import { playClickSound, playSuccessSound } from '../../utils/audio';
+import { safeStorage, sanitizeUsername, sanitizeInput } from '../../utils/security';
 
 interface AnimeProfileModalProps {
   isOpen: boolean;
@@ -16,11 +17,11 @@ export const AnimeProfileModal: React.FC<AnimeProfileModalProps> = ({
   const { soundEnabled, level, xp, coins, streakDays } = useGame();
 
   const [username, setUsername] = useState<string>(
-    () => localStorage.getItem('gitquest_username') || 'yahoshuva138'
+    () => safeStorage.getItem('gitquest_username', 'yahoshuva138')
   );
 
   const [selectedCharId, setSelectedCharId] = useState<string>(
-    () => localStorage.getItem('gitquest_anime_char') || 'sakura-coder'
+    () => safeStorage.getItem('gitquest_anime_char', 'sakura-coder')
   );
 
   if (!isOpen) return null;
@@ -35,8 +36,9 @@ export const AnimeProfileModal: React.FC<AnimeProfileModalProps> = ({
 
   const handleSave = () => {
     if (soundEnabled) playSuccessSound();
-    localStorage.setItem('gitquest_username', username);
-    localStorage.setItem('gitquest_anime_char', selectedCharId);
+    const cleanUser = sanitizeUsername(username);
+    safeStorage.setItem('gitquest_username', cleanUser);
+    safeStorage.setItem('gitquest_anime_char', selectedCharId);
     onClose();
   };
 

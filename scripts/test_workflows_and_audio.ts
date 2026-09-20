@@ -339,6 +339,82 @@ assert(getNinjaRank(12) === 'HOKAGE / PIRATE KING', 'Lvl 12 ranks as Hokage / Pi
 assert(getNinjaRank(50) === 'HOKAGE / PIRATE KING', 'Lvl 50 ranks as Hokage / Pirate King');
 
 // ==========================================
+// 7. AUTHENTICATION & SECURITY SANITIZATION
+// ==========================================
+console.log('\n=============================================');
+console.log('🔐 7. TESTING AUTHENTICATION & SECURITY SHIELD');
+console.log('=============================================');
+
+import {
+  sanitizeInput,
+  sanitizeUsername,
+  validateEmail,
+  safeStorage,
+} from '../src/utils/security';
+
+// 1. Test XSS / Script Injection Stripping
+const maliciousPayload = '<script>alert("xss")</script><img src=x onerror=alert(1)>Hello World;DROP TABLE users;';
+const sanitized = sanitizeInput(maliciousPayload);
+assert(!sanitized.includes('<script>'), 'sanitizeInput: strips <script> tags');
+assert(!sanitized.includes('</script>'), 'sanitizeInput: strips </script> tags');
+assert(!sanitized.includes('<img'), 'sanitizeInput: strips <img> tags');
+assert(!sanitized.includes(';'), 'sanitizeInput: strips semicolons');
+assert(sanitized.includes('Hello World'), 'sanitizeInput: preserves legitimate text content');
+
+// 2. Test Developer Handle / Username Sanitization
+assert(sanitizeUsername('naruto_coder') === 'naruto_coder', 'sanitizeUsername: preserves valid alphanumeric & underscore');
+assert(sanitizeUsername('luffy-king-10') === 'luffy-king-10', 'sanitizeUsername: preserves valid hyphens');
+assert(sanitizeUsername('<script>evil</script>') === 'scriptevilscript', 'sanitizeUsername: strips HTML tags & brackets');
+assert(sanitizeUsername('   spaced   ') === 'spaced', 'sanitizeUsername: trims surrounding spaces');
+assert(sanitizeUsername('') === 'ninja_dev', 'sanitizeUsername: falls back to "ninja_dev" when empty');
+assert(sanitizeUsername('!') === 'ninja_dev', 'sanitizeUsername: falls back to "ninja_dev" when too short');
+
+// 3. Test Email Validation
+assert(validateEmail('yahoshuva.dev@gmail.com') === true, 'validateEmail: accepts valid Gmail address');
+assert(validateEmail('user.name+tag@domain.co.uk') === true, 'validateEmail: accepts complex valid email');
+assert(validateEmail('not-an-email') === false, 'validateEmail: rejects plain string');
+assert(validateEmail('missing-domain@') === false, 'validateEmail: rejects missing domain');
+assert(validateEmail('@missing-user.com') === false, 'validateEmail: rejects missing username');
+assert(validateEmail('<script>@gmail.com') === false, 'validateEmail: rejects XSS attempt in email');
+
+// 4. Test Google Authentication Simulation
+interface GoogleAuthPayload {
+  provider: 'google';
+  email: string;
+  username: string;
+  verified: boolean;
+}
+
+const googleUser: GoogleAuthPayload = {
+  provider: 'google',
+  email: 'yahoshuva.google@gmail.com',
+  username: sanitizeUsername('yahoshuva_google'),
+  verified: true,
+};
+
+assert(googleUser.provider === 'google', 'Google Auth: provider is "google"');
+assert(validateEmail(googleUser.email), 'Google Auth: verified email is RFC-compliant');
+assert(googleUser.username === 'yahoshuva_google', 'Google Auth: sanitized username is valid');
+
+// 5. Test SafeStorage Engine
+const mockStorageMap = new Map<string, string>();
+(global as any).window.localStorage = {
+  getItem: (k: string) => mockStorageMap.get(k) ?? null,
+  setItem: (k: string, v: string) => mockStorageMap.set(k, v),
+  removeItem: (k: string) => mockStorageMap.delete(k),
+};
+
+safeStorage.setItem('test_auth_token', 'secure_token_12345');
+assert(safeStorage.getItem('test_auth_token') === 'secure_token_12345', 'safeStorage: stores and retrieves sanitized string');
+
+safeStorage.setJSON('test_profile', { provider: 'google', level: 12 });
+const retrievedProfile = safeStorage.getJSON('test_profile', { provider: '', level: 1 });
+assert(retrievedProfile.provider === 'google' && retrievedProfile.level === 12, 'safeStorage: JSON serialization & parsing');
+
+safeStorage.removeItem('test_auth_token');
+assert(safeStorage.getItem('test_auth_token', 'fallback') === 'fallback', 'safeStorage: removeItem removes key & returns fallback');
+
+// ==========================================
 // FINAL RESULTS SUMMARY
 // ==========================================
 console.log('\n=============================================');

@@ -59,7 +59,7 @@ export const CommunityWidget: React.FC = () => {
                 <a
                   href="https://github.com/Yahoshuva138/GitQuest/discussions"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="p-3 rounded-xl bg-dev-surface border border-dev-border hover:border-git-blue flex items-center justify-between transition-colors group"
                 >
                   <div className="flex items-center gap-2.5">
@@ -79,7 +79,7 @@ export const CommunityWidget: React.FC = () => {
                 <a
                   href="https://github.com/Yahoshuva138/GitQuest/issues"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="p-3 rounded-xl bg-dev-surface border border-dev-border hover:border-git-blue flex items-center justify-between transition-colors group"
                 >
                   <div className="flex items-center gap-2.5">

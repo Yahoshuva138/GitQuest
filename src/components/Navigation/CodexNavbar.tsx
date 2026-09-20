@@ -26,6 +26,7 @@ import { GuildModal } from '../Leaderboard/GuildModal';
 import { AnimeProfileModal } from '../Profile/AnimeProfileModal';
 import { ANIME_CHARACTERS } from '../../data/animeCharacters';
 import { playClickSound } from '../../utils/audio';
+import { safeStorage } from '../../utils/security';
 
 export const CodexNavbar: React.FC = () => {
   const {
@@ -48,7 +49,7 @@ export const CodexNavbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Active character avatar
-  const activeCharId = localStorage.getItem('gitquest_anime_char') || 'sakura-coder';
+  const activeCharId = safeStorage.getItem('gitquest_anime_char', 'sakura-coder');
   const character =
     ANIME_CHARACTERS.find((c) => c.id === activeCharId) || ANIME_CHARACTERS[0];
 
