@@ -16,54 +16,44 @@ import { MISSIONS } from '../../data/missions';
 import { TeamRosterModal } from '../Characters/TeamRosterModal';
 import { CharacterAvatar } from '../Characters/CharacterAvatar';
 import { TEAM_CHARACTERS } from '../../data/characters';
+import { playClickSound } from '../../utils/audio';
 
 export const Sidebar: React.FC = () => {
-  const { activeTab, setActiveTab, completedMissions, currentMission } = useGame();
+  const { activeTab, setActiveTab, completedMissions, currentMission, soundEnabled } = useGame();
   const [isTeamModalOpen, setIsTeamModalOpen] = useState(false);
 
   const navItems: Array<{ id: TabType; label: string; icon: React.FC<{ className?: string }> }> = [
-    { id: 'home', label: 'Home', icon: Home },
-    { id: 'learning-map', label: 'Learning Map', icon: Map },
-    { id: 'missions', label: 'Missions', icon: Gamepad2 },
-    { id: 'practice-lab', label: 'Practice Lab', icon: TerminalIcon },
+    { id: 'world-map', label: 'Journey (Overworld)', icon: Map },
+    { id: 'home', label: 'Home Base', icon: Home },
+    { id: 'missions', label: 'Quests', icon: Gamepad2 },
+    { id: 'practice-lab', label: 'Sandbox Lab', icon: TerminalIcon },
     { id: 'branch-lab', label: 'Branch Lab', icon: GitBranch },
     { id: 'github-lab', label: 'GitHub Lab', icon: Cloud },
     { id: 'conflict-lab', label: 'Conflict Lab', icon: Flame },
-    { id: 'progress', label: 'Progress', icon: Trophy },
+    { id: 'learning-map', label: 'Skill Tree', icon: Map },
+    { id: 'progress', label: 'Progress & Badges', icon: Trophy },
   ];
 
   const totalMissions = MISSIONS.length;
   const completedCount = completedMissions.length;
   const progressPercent = Math.round((completedCount / totalMissions) * 100);
 
-  return (
-    <aside className="w-64 bg-dev-panel border-r border-dev-border flex flex-col justify-between h-screen select-none shrink-0 hidden md:flex">
-      {/* Brand Header */}
-      <div>
-        <div className="p-4 border-b border-dev-border flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-md bg-git-orange/15 border border-git-orange/40 flex items-center justify-center text-git-orange font-mono font-bold text-base shadow-sm">
-              &gt;_
-            </div>
-            <div>
-              <div className="flex items-center gap-1.5">
-                <span className="font-bold text-dev-heading tracking-tight font-mono text-base">GitQuest</span>
-                <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-dev-surface text-dev-subtext border border-dev-border">
-                  v1.0
-                </span>
-              </div>
-              <p className="text-[11px] text-dev-subtext tracking-wide">Interactive Git Engine</p>
-            </div>
-          </div>
-        </div>
+  const handleNavClick = (id: TabType) => {
+    if (soundEnabled) playClickSound();
+    setActiveTab(id);
+  };
 
+  return (
+    <aside className="w-64 bg-dev-panel border-r border-dev-border flex flex-col justify-between h-[calc(100vh-50px)] sticky top-[50px] select-none shrink-0 hidden md:flex overflow-y-auto">
+      {/* Brand & Quick Info */}
+      <div>
         {/* Current Active Mission Quick Bar */}
-        <div className="p-3 mx-3 my-3 rounded-md bg-dev-surface/70 border border-dev-border text-xs">
+        <div className="p-3 mx-3 my-3 rounded-lg bg-dev-surface/70 border border-dev-border text-xs shadow-sm">
           <div className="flex items-center justify-between mb-1">
             <span className="text-[10px] font-mono uppercase text-dev-subtext flex items-center gap-1">
-              <Sparkles className="w-3 h-3 text-git-yellow" /> Active Mission
+              <Sparkles className="w-3 h-3 text-git-yellow" /> Active Quest
             </span>
-            <span className="text-[10px] font-mono text-dev-subtext">
+            <span className="text-[10px] font-mono text-git-blue font-bold">
               {currentMission.badge}
             </span>
           </div>
@@ -78,7 +68,7 @@ export const Sidebar: React.FC = () => {
             return (
               <button
                 key={item.id}
-                onClick={() => setActiveTab(item.id)}
+                onClick={() => handleNavClick(item.id)}
                 className={`w-full flex items-center justify-between px-3 py-2 text-xs font-medium rounded-md transition-all duration-150 ${
                   isActive
                     ? 'bg-dev-surface text-git-blue border border-dev-border font-semibold shadow-subtle'
@@ -105,12 +95,15 @@ export const Sidebar: React.FC = () => {
         {/* Team Avatars Quick Dock */}
         <div className="px-3 pt-3">
           <button
-            onClick={() => setIsTeamModalOpen(true)}
+            onClick={() => {
+              if (soundEnabled) playClickSound();
+              setIsTeamModalOpen(true);
+            }}
             className="w-full p-2.5 rounded-md bg-[#0D1219] border border-dev-border/70 hover:border-git-blue/50 text-left transition-all group"
           >
             <div className="flex items-center justify-between mb-1.5">
               <span className="text-[10px] font-mono uppercase text-dev-subtext group-hover:text-dev-heading">
-                Engineering Team
+                Engineering Companions
               </span>
               <span className="text-[9px] text-git-blue font-mono">View All &gt;</span>
             </div>
