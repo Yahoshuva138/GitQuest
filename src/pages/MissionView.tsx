@@ -144,43 +144,53 @@ export const MissionView: React.FC = () => {
 
       {/* Center Interactive Playground Split */}
       <div className="space-y-4">
-        {/* Visualizer Mode Switcher */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1 bg-dev-panel border border-dev-border rounded p-0.5">
+        {/* Visualizer Mode Switcher Bar */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-2.5 rounded-xl bg-dev-panel border border-dev-border shadow-sm">
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+            <span className="font-bold text-xs text-dev-heading uppercase tracking-wider font-mono">
+              Build Workspace
+            </span>
+            <span className="text-[10px] text-purple-300 font-bold hidden sm:inline">
+              『ビルド空間・リアルタイム可視化』
+            </span>
+          </div>
+
+          <div className="flex items-center gap-1 bg-dev-surface/80 border border-dev-border rounded-lg p-1">
             <button
               onClick={() => setActiveView('pipeline')}
-              className={`flex items-center gap-1.5 px-3 py-1 rounded text-xs transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-mono transition-all ${
                 activeView === 'pipeline'
-                  ? 'bg-dev-surface text-dev-heading font-semibold shadow-sm border border-dev-border'
+                  ? 'bg-git-blue/20 text-git-blue font-bold shadow-sm border border-git-blue/40'
                   : 'text-dev-subtext hover:text-dev-text'
               }`}
             >
               <Workflow className="w-3.5 h-3.5" />
-              <span>Architecture Pipeline</span>
+              <span>Pipeline 『パイプライン』</span>
             </button>
 
             <button
               onClick={() => setActiveView('commits')}
-              className={`flex items-center gap-1.5 px-3 py-1 rounded text-xs transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-mono transition-all ${
                 activeView === 'commits'
-                  ? 'bg-dev-surface text-dev-heading font-semibold shadow-sm border border-dev-border'
+                  ? 'bg-git-blue/20 text-git-blue font-bold shadow-sm border border-git-blue/40'
                   : 'text-dev-subtext hover:text-dev-text'
               }`}
             >
               <GitCommit className="w-3.5 h-3.5" />
-              <span>Commit Graph</span>
+              <span>Commits 『コミット』</span>
             </button>
 
             <button
               onClick={() => setActiveView('files')}
-              className={`flex items-center gap-1.5 px-3 py-1 rounded text-xs transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-mono transition-all ${
                 activeView === 'files'
-                  ? 'bg-dev-surface text-dev-heading font-semibold shadow-sm border border-dev-border'
+                  ? 'bg-git-blue/20 text-git-blue font-bold shadow-sm border border-git-blue/40'
                   : 'text-dev-subtext hover:text-dev-text'
               }`}
             >
               <FolderTree className="w-3.5 h-3.5" />
-              <span>File Explorer</span>
+              <span>Explorer 『ファイル』</span>
             </button>
           </div>
         </div>
