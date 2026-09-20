@@ -18,6 +18,7 @@ import { PresentationViewer } from './components/Presentation/PresentationViewer
 import { LessonIntroCutscene } from './components/Cutscene/LessonIntroCutscene';
 import { AnimeNotification } from './components/Notifications/AnimeNotification';
 import { AuthModal } from './components/Auth/AuthModal';
+import { GitIntroAnimation } from './components/Intro/GitIntroAnimation';
 import { TOPICS_CURRICULUM } from './data/curriculum';
 
 const AppContent: React.FC = () => {
@@ -38,6 +39,8 @@ const AppContent: React.FC = () => {
     dismissNotification,
     isAuthModalOpen,
     closeAuthModal,
+    isIntroOpen,
+    closeIntro,
   } = useGame();
 
   const activeTopic =
@@ -141,6 +144,12 @@ const AppContent: React.FC = () => {
       <AuthModal
         isOpen={isAuthModalOpen}
         onClose={closeAuthModal}
+      />
+
+      {/* Cinematic Startup Git & GitHub Motion Graphics Intro */}
+      <GitIntroAnimation
+        isOpen={isIntroOpen}
+        onClose={closeIntro}
       />
 
       {/* Terms and Conditions Modal */}

@@ -12,7 +12,7 @@ interface AnimeCourseHeroProps {
 export const AnimeCourseHero: React.FC<AnimeCourseHeroProps> = ({
   onStartLearning,
 }) => {
-  const { soundEnabled } = useGame();
+  const { soundEnabled, openIntro } = useGame();
   const [quoteIndex, setQuoteIndex] = useState(0);
 
   useEffect(() => {
@@ -51,6 +51,29 @@ export const AnimeCourseHero: React.FC<AnimeCourseHeroProps> = ({
           <div className="absolute -top-4 left-2/3 text-2xl animate-sakura-3 opacity-85">🌸</div>
           <div className="absolute -top-5 left-5/6 text-lg animate-sakura-1 opacity-60">🌸</div>
           <div className="absolute -top-8 left-1/2 text-2xl animate-sakura-2 opacity-75">🌸</div>
+        </div>
+
+        {/* Vertical Japanese Kanji Watermarks */}
+        <div className="absolute right-4 top-1/4 hidden md:flex flex-col items-center gap-1.5 pointer-events-none z-20 text-[11px] font-mono font-extrabold text-pink-300/40 tracking-widest bg-black/30 backdrop-blur-sm px-1.5 py-3 rounded-xl border border-pink-500/20">
+          <span>『</span>
+          <span>ギ</span>
+          <span>ッ</span>
+          <span>ト</span>
+          <span>ク</span>
+          <span>エ</span>
+          <span>ス</span>
+          <span>ト</span>
+          <span>』</span>
+        </div>
+
+        <div className="absolute left-4 bottom-1/4 hidden md:flex flex-col items-center gap-1.5 pointer-events-none z-20 text-[11px] font-mono font-extrabold text-purple-300/40 tracking-widest bg-black/30 backdrop-blur-sm px-1.5 py-3 rounded-xl border border-purple-500/20">
+          <span>『</span>
+          <span>時</span>
+          <span>空</span>
+          <span>分</span>
+          <span>岐</span>
+          <span>編</span>
+          <span>』</span>
         </div>
 
         {/* Cherry Blossom Branches on the left */}
@@ -100,12 +123,21 @@ export const AnimeCourseHero: React.FC<AnimeCourseHeroProps> = ({
               <Sparkles className="w-3 h-3 text-amber-300" />
               <span>GOAT ANIME CODING EDITION</span>
             </div>
+
+            <div className="text-[10px] font-mono text-pink-300/90 font-bold hidden sm:inline">
+              『完全攻略編』
+            </div>
           </div>
 
-          {/* Heading */}
-          <h1 className="text-3xl sm:text-5xl font-sans font-extrabold text-white tracking-tight drop-shadow-md">
-            {CODEX_COURSE.title}
-          </h1>
+          {/* Heading with Japanese Subtitle */}
+          <div className="space-y-1">
+            <div className="text-[11px] font-mono text-pink-400 font-bold tracking-wider">
+              『分散型バージョン管理システム・完全攻略』
+            </div>
+            <h1 className="text-3xl sm:text-5xl font-sans font-extrabold text-white tracking-tight drop-shadow-md">
+              {CODEX_COURSE.title}
+            </h1>
+          </div>
 
           {/* Description */}
           <p className="text-xs sm:text-sm text-slate-200 font-sans leading-relaxed drop-shadow">
@@ -137,14 +169,25 @@ export const AnimeCourseHero: React.FC<AnimeCourseHeroProps> = ({
             </div>
           </div>
 
-          {/* Start Learning for Free CTA Button */}
-          <div className="pt-2 flex items-center gap-3">
+          {/* CTA Buttons: Start Learning & Replay Intro */}
+          <div className="pt-2 flex flex-wrap items-center gap-3">
             <button
               onClick={handleStart}
               className="px-6 py-3.5 rounded-xl bg-rpg-gold hover:bg-amber-400 text-black font-sans font-extrabold text-sm tracking-wide shadow-pixelGold border-b-4 border-amber-600 active:border-b-0 active:translate-y-1 transition-all flex items-center gap-2.5 group"
             >
               <span>Start Learning for Free</span>
               <Play className="w-4 h-4 fill-black group-hover:translate-x-0.5 transition-transform" />
+            </button>
+
+            <button
+              onClick={() => {
+                if (soundEnabled) playPowerUpSound();
+                openIntro();
+              }}
+              className="px-4 py-3.5 rounded-xl bg-purple-950/60 hover:bg-purple-900/60 border border-purple-500/50 text-purple-200 font-mono font-bold text-xs tracking-wide active:scale-95 transition-all flex items-center gap-2 shadow-lg"
+              title="Replay the cinematic startup motion graphics intro"
+            >
+              <span>🎬 Replay Intro</span>
             </button>
           </div>
 

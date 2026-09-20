@@ -84,6 +84,11 @@ interface GameContextType {
   openAuthModal: () => void;
   closeAuthModal: () => void;
 
+  // Startup Intro Animation
+  isIntroOpen: boolean;
+  openIntro: () => void;
+  closeIntro: () => void;
+
   startMission: (missionId: string) => void;
   executeCommand: (commandString: string) => CommandResult;
   revealNextHint: () => void;
@@ -177,6 +182,25 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const openAuthModal = () => setIsAuthModalOpen(true);
   const closeAuthModal = () => setIsAuthModalOpen(false);
+
+  // Startup Intro Animation State
+  const [isIntroOpen, setIsIntroOpen] = useState<boolean>(() => {
+    try {
+      if (typeof window !== 'undefined' && window.sessionStorage) {
+        const seen = window.sessionStorage.getItem('gitquest_intro_seen');
+        if (!seen) {
+          window.sessionStorage.setItem('gitquest_intro_seen', 'true');
+          return true;
+        }
+      }
+      return false;
+    } catch {
+      return false;
+    }
+  });
+
+  const openIntro = () => setIsIntroOpen(true);
+  const closeIntro = () => setIsIntroOpen(false);
 
   // RPG Progression States
   const [xp, setXp] = useState<number>(() => {
@@ -625,6 +649,9 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
         isAuthModalOpen,
         openAuthModal,
         closeAuthModal,
+        isIntroOpen,
+        openIntro,
+        closeIntro,
 
         startMission,
         executeCommand,

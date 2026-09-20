@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { AnimeCourseHero } from '../AnimeHero/AnimeCourseHero';
+import { GitMotionGraphicShowcase } from '../MotionGraphics/GitMotionGraphicShowcase';
 import { ChapterExerciseCard } from './ChapterExerciseCard';
 import { AnimeProfileCard } from '../Profile/AnimeProfileCard';
 import { AnimeProfileModal } from '../Profile/AnimeProfileModal';
@@ -18,6 +19,7 @@ export const CodexCourseLayout: React.FC = () => {
     setActiveTab,
     openTopicPresentation,
     openTopicCutscene,
+    openIntro,
   } = useGame();
 
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
@@ -41,7 +43,10 @@ export const CodexCourseLayout: React.FC = () => {
       {/* 1. Panoramic Anime Course Hero Banner */}
       <AnimeCourseHero onStartLearning={handleStartLearningFree} />
 
-      {/* 2. Main 2-Column Course Layout matching reference image */}
+      {/* 2. Interactive Git & GitHub Motion Graphics Showcase Lab */}
+      <GitMotionGraphicShowcase onReplayIntro={openIntro} />
+
+      {/* 3. Main 2-Column Course Layout matching reference image */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left Column: Chapters & Exercise Tables (8 cols) */}
         <div className="lg:col-span-8">
