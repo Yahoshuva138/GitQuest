@@ -19,11 +19,13 @@ import {
   Search,
   Bell,
   User,
+  Image as ImageIcon,
 } from 'lucide-react';
 import { useGame, TabType } from '../../context/GameContext';
 import { InventoryModal } from '../Inventory/InventoryModal';
 import { GuildModal } from '../Leaderboard/GuildModal';
 import { AnimeProfileModal } from '../Profile/AnimeProfileModal';
+import { BackgroundSelectorModal } from '../Background/BackgroundSelectorModal';
 import { ANIME_CHARACTERS } from '../../data/animeCharacters';
 import { playClickSound } from '../../utils/audio';
 import { safeStorage } from '../../utils/security';
@@ -46,6 +48,7 @@ export const CodexNavbar: React.FC = () => {
   const [isInventoryOpen, setIsInventoryOpen] = useState(false);
   const [isGuildOpen, setIsGuildOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isWallpaperOpen, setIsWallpaperOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Active character avatar
@@ -179,6 +182,18 @@ export const CodexNavbar: React.FC = () => {
               )}
             </button>
 
+            {/* Aesthetic Wallpaper Switcher Button */}
+            <button
+              onClick={() => {
+                if (soundEnabled) playClickSound();
+                setIsWallpaperOpen(true);
+              }}
+              className="p-1.5 rounded-lg bg-dev-surface hover:bg-dev-border border border-dev-border text-purple-400 hover:text-purple-300 transition-all active:scale-95 flex items-center gap-1"
+              title="Aesthetic Wallpapers & Atmosphere 『壁紙・背景設定』"
+            >
+              <ImageIcon className="w-4 h-4" />
+            </button>
+
             {/* Terms Button */}
             <button
               onClick={() => {
@@ -266,6 +281,7 @@ export const CodexNavbar: React.FC = () => {
       <InventoryModal isOpen={isInventoryOpen} onClose={() => setIsInventoryOpen(false)} />
       <GuildModal isOpen={isGuildOpen} onClose={() => setIsGuildOpen(false)} />
       <AnimeProfileModal isOpen={isProfileOpen} onClose={() => setIsProfileOpen(false)} />
+      <BackgroundSelectorModal isOpen={isWallpaperOpen} onClose={() => setIsWallpaperOpen(false)} />
     </>
   );
 };

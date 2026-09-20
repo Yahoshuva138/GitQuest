@@ -19,6 +19,7 @@ import { LessonIntroCutscene } from './components/Cutscene/LessonIntroCutscene';
 import { AnimeNotification } from './components/Notifications/AnimeNotification';
 import { AuthModal } from './components/Auth/AuthModal';
 import { GitIntroAnimation } from './components/Intro/GitIntroAnimation';
+import { AestheticBackground } from './components/Background/AestheticBackground';
 import { TOPICS_CURRICULUM } from './data/curriculum';
 
 const AppContent: React.FC = () => {
@@ -91,12 +92,15 @@ const AppContent: React.FC = () => {
   ].includes(activeTab);
 
   return (
-    <div className="flex flex-col min-h-screen bg-dev-bg text-dev-text selection:bg-dev-highlight selection:text-white">
+    <div className="flex flex-col min-h-screen bg-dev-bg text-dev-text selection:bg-dev-highlight selection:text-white relative">
+      {/* Dynamic Aesthetic Anime Cyberpunk Background */}
+      <AestheticBackground />
+
       {/* Codédex Retro RPG Navigation Bar */}
       <CodexNavbar />
 
       {/* Main Workspace Layout with Desktop Sidebar on Lab Views */}
-      <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
+      <div className="flex-1 flex flex-col md:flex-row overflow-hidden relative z-10">
         {isLabView && <Sidebar />}
 
         <main
