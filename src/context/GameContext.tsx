@@ -19,6 +19,7 @@ import {
 
 export type TabType =
   | 'home'
+  | 'curriculum'
   | 'learning-map'
   | 'missions'
   | 'practice-lab'
@@ -28,7 +29,8 @@ export type TabType =
   | 'progress'
   | 'world-map'
   | 'inventory'
-  | 'guild';
+  | 'guild'
+  | 'terms';
 
 interface GameContextType {
   activeTab: TabType;
@@ -56,6 +58,18 @@ interface GameContextType {
   addXP: (amount: number) => void;
   toggleSound: () => void;
   unlockInventoryItem: (itemId: string) => void;
+
+  // Curriculum, Presentation & Cutscenes
+  activeTopicId: string;
+  isPresentationOpen: boolean;
+  isCutsceneOpen: boolean;
+  isTermsOpen: boolean;
+  openTopicPresentation: (topicId: string) => void;
+  closeTopicPresentation: () => void;
+  openTopicCutscene: (topicId: string) => void;
+  closeTopicCutscene: () => void;
+  openTermsModal: () => void;
+  closeTermsModal: () => void;
 
   startMission: (missionId: string) => void;
   executeCommand: (commandString: string) => CommandResult;
@@ -85,6 +99,37 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [lastExplanation, setLastExplanation] = useState<ExplanationData | null>(null);
   const [isMissionCompleteModalOpen, setIsMissionCompleteModalOpen] = useState<boolean>(false);
   const [commandHistory, setCommandHistory] = useState<CommandResult[]>([]);
+
+  const [activeTopicId, setActiveTopicId] = useState<string>('01-introduction');
+  const [isPresentationOpen, setIsPresentationOpen] = useState<boolean>(false);
+  const [isCutsceneOpen, setIsCutsceneOpen] = useState<boolean>(false);
+  const [isTermsOpen, setIsTermsOpen] = useState<boolean>(false);
+
+  const openTopicPresentation = (topicId: string) => {
+    setActiveTopicId(topicId);
+    setIsPresentationOpen(true);
+  };
+
+  const closeTopicPresentation = () => {
+    setIsPresentationOpen(false);
+  };
+
+  const openTopicCutscene = (topicId: string) => {
+    setActiveTopicId(topicId);
+    setIsCutsceneOpen(true);
+  };
+
+  const closeTopicCutscene = () => {
+    setIsCutsceneOpen(false);
+  };
+
+  const openTermsModal = () => {
+    setIsTermsOpen(true);
+  };
+
+  const closeTermsModal = () => {
+    setIsTermsOpen(false);
+  };
 
   // RPG Progression States
   const [xp, setXp] = useState<number>(() => {
@@ -512,6 +557,17 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
         addXP,
         toggleSound,
         unlockInventoryItem,
+
+        activeTopicId,
+        isPresentationOpen,
+        isCutsceneOpen,
+        isTermsOpen,
+        openTopicPresentation,
+        closeTopicPresentation,
+        openTopicCutscene,
+        closeTopicCutscene,
+        openTermsModal,
+        closeTermsModal,
 
         startMission,
         executeCommand,

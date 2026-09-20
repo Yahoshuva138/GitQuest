@@ -10,6 +10,7 @@ import {
   Trophy,
   CheckCircle2,
   Sparkles,
+  BookOpen,
 } from 'lucide-react';
 import { useGame, TabType } from '../../context/GameContext';
 import { MISSIONS } from '../../data/missions';
@@ -23,6 +24,7 @@ export const Sidebar: React.FC = () => {
   const [isTeamModalOpen, setIsTeamModalOpen] = useState(false);
 
   const navItems: Array<{ id: TabType; label: string; icon: React.FC<{ className?: string }> }> = [
+    { id: 'curriculum', label: 'Curriculum (Chapters)', icon: BookOpen },
     { id: 'world-map', label: 'Journey (Overworld)', icon: Map },
     { id: 'home', label: 'Home Base', icon: Home },
     { id: 'missions', label: 'Quests', icon: Gamepad2 },

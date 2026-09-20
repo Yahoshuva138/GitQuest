@@ -14,6 +14,8 @@ import {
   Map,
   Menu,
   X,
+  BookOpen,
+  Scale,
 } from 'lucide-react';
 import { useGame, TabType } from '../../context/GameContext';
 import { InventoryModal } from '../Inventory/InventoryModal';
@@ -31,6 +33,7 @@ export const CodexNavbar: React.FC = () => {
     soundEnabled,
     toggleSound,
     playerTitle,
+    openTermsModal,
   } = useGame();
 
   const [isInventoryOpen, setIsInventoryOpen] = useState(false);
@@ -44,6 +47,7 @@ export const CodexNavbar: React.FC = () => {
   const xpPercent = Math.min(100, Math.round((currentLevelProgress / 250) * 100));
 
   const navLinks: Array<{ id: TabType; label: string; icon: React.FC<{ className?: string }> }> = [
+    { id: 'curriculum', label: 'Curriculum', icon: BookOpen },
     { id: 'world-map', label: 'Journey', icon: Map },
     { id: 'missions', label: 'Quests', icon: Gamepad2 },
     { id: 'branch-lab', label: 'Branches', icon: Compass },
@@ -185,6 +189,18 @@ export const CodexNavbar: React.FC = () => {
               ) : (
                 <VolumeX className="w-4 h-4 text-dev-subtext" />
               )}
+            </button>
+
+            {/* Terms & Conditions */}
+            <button
+              onClick={() => {
+                if (soundEnabled) playClickSound();
+                openTermsModal();
+              }}
+              className="p-1.5 rounded-lg bg-dev-surface hover:bg-dev-border border border-dev-border text-dev-subtext hover:text-dev-heading transition-all active:scale-95"
+              title="Terms and Conditions"
+            >
+              <Scale className="w-4 h-4 text-slate-300" />
             </button>
 
             {/* Mobile Menu Hamburger */}

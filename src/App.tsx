@@ -12,14 +12,43 @@ import { ConflictLab } from './pages/ConflictLab';
 import { GitHubLab } from './pages/GitHubLab';
 import { ProgressPage } from './pages/ProgressPage';
 import { OverworldMap } from './components/WorldMap/OverworldMap';
+import { CourseView } from './pages/CourseView';
+import { TermsModal } from './components/Legal/TermsModal';
+import { PresentationViewer } from './components/Presentation/PresentationViewer';
+import { LessonIntroCutscene } from './components/Cutscene/LessonIntroCutscene';
+import { TOPICS_CURRICULUM } from './data/curriculum';
 
 const AppContent: React.FC = () => {
-  const { activeTab } = useGame();
+  const {
+    activeTab,
+    setActiveTab,
+    startMission,
+    activeTopicId,
+    isPresentationOpen,
+    isCutsceneOpen,
+    isTermsOpen,
+    openTopicPresentation,
+    closeTopicPresentation,
+    openTopicCutscene,
+    closeTopicCutscene,
+    closeTermsModal,
+  } = useGame();
+
+  const activeTopic =
+    TOPICS_CURRICULUM.find((t) => t.id === activeTopicId) ||
+    TOPICS_CURRICULUM[0];
 
   const renderActiveView = () => {
     switch (activeTab) {
       case 'home':
         return <Home />;
+      case 'curriculum':
+        return (
+          <CourseView
+            onOpenCutscene={(t) => openTopicCutscene(t.id)}
+            onOpenPresentation={(t) => openTopicPresentation(t.id)}
+          />
+        );
       case 'world-map':
         return <OverworldMap />;
       case 'learning-map':
@@ -57,6 +86,32 @@ const AppContent: React.FC = () => {
 
       {/* Global Mission Completion Modal */}
       <MissionModal />
+
+      {/* Topic Presentation (PPT) Viewer */}
+      <PresentationViewer
+        topic={activeTopic}
+        isOpen={isPresentationOpen}
+        onClose={closeTopicPresentation}
+        onLaunchMission={(mId) => {
+          startMission(mId);
+          setActiveTab('missions');
+        }}
+      />
+
+      {/* Cinematic Lesson Intro Cutscene (Matching Screenshot) */}
+      <LessonIntroCutscene
+        topic={activeTopic}
+        isOpen={isCutsceneOpen}
+        onClose={closeTopicCutscene}
+        onOpenPresentation={() => openTopicPresentation(activeTopic.id)}
+        onStartMission={(mId) => {
+          startMission(mId);
+          setActiveTab('missions');
+        }}
+      />
+
+      {/* Terms and Conditions Modal */}
+      <TermsModal isOpen={isTermsOpen} onClose={closeTermsModal} />
     </div>
   );
 };
