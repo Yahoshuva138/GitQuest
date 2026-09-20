@@ -19,6 +19,7 @@ import { Terminal } from '../components/Terminal/Terminal';
 import { CommitGraph } from '../components/CommitGraph/CommitGraph';
 import { FileTree } from '../components/FileTree/FileTree';
 import { ExplanationCard } from '../components/Explanation/ExplanationCard';
+import { TeamCompanion } from '../components/Characters/TeamCompanion';
 
 type ViewMode = 'pipeline' | 'commits' | 'files';
 
@@ -38,6 +39,9 @@ export const MissionView: React.FC = () => {
 
   return (
     <div className="space-y-4 max-w-6xl mx-auto font-mono text-xs animate-stage-in">
+      {/* Team Companion / Peer Developer Dialogue */}
+      <TeamCompanion />
+
       {/* Mission Briefing Card */}
       <div className="dev-panel p-5 bg-dev-panel border-dev-border shadow-panel space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-dev-border">

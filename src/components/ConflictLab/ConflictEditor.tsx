@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Flame, CheckCircle2, ArrowRight, ShieldCheck, Edit3, SplitSquareVertical } from 'lucide-react';
+import { Flame, CheckCircle2, ArrowRight, ShieldCheck, Edit3, SplitSquareVertical, Zap } from 'lucide-react';
 import { useGame } from '../../context/GameContext';
+import { CharacterAvatar } from '../Characters/CharacterAvatar';
+import { TEAM_CHARACTERS } from '../../data/characters';
 
 export const ConflictEditor: React.FC = () => {
   const { repoState, resolveConflict, executeCommand } = useGame();
@@ -52,14 +54,28 @@ export const ConflictEditor: React.FC = () => {
         </div>
       </div>
 
-      {/* Educational Explanation Box */}
-      <div className="p-3 rounded bg-amber-500/10 border border-amber-500/30 text-amber-200 text-[11.5px] leading-relaxed">
-        <strong>⚠️ What happened?</strong> Both you and your teammate edited the exact same line in <code>{conflict.filePath}</code>.
-        Git refuses to guess which version you want to keep. Pick the right resolution below or combine them!
+      {/* Character Dialogue Box: Arjun Explains */}
+      <div className="p-3.5 rounded-lg bg-gradient-to-r from-amber-500/10 to-rose-500/10 border border-amber-500/30 text-dev-text flex items-start gap-3">
+        <CharacterAvatar character={TEAM_CHARACTERS['arjun']} mood="warning" size="md" />
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="font-bold text-dev-heading text-xs font-sans">Arjun Patel</span>
+            <span className="text-[10px] text-amber-400 font-mono">· Merge Conflict Detected</span>
+          </div>
+          <p className="text-xs text-dev-text font-sans leading-relaxed">
+            "Hey! We both edited <code>{conflict.filePath}</code>. I updated the title on my branch, while you changed it on {conflict.baseBranch}. Git stopped because it wants us to decide the final version. Pick which one to keep!"
+          </p>
+        </div>
       </div>
 
-      {/* 3-Way Comparison Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {/* 3-Way Comparison Grid with Clash Spark */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 relative">
+        {/* Animated Clash Lightning Spark in the center */}
+        <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 items-center justify-center pointer-events-none">
+          <div className="w-9 h-9 rounded-full bg-git-orange/20 border border-git-orange/60 flex items-center justify-center text-git-orange animate-clash-spark shadow-glow">
+            <Zap className="w-5 h-5 fill-git-orange" />
+          </div>
+        </div>
         {/* Left: Your Version (HEAD) */}
         <div className={`p-3 rounded-lg border flex flex-col justify-between transition-all ${
           selectedChoice === 'current' ? 'border-emerald-500 bg-emerald-950/20' : 'border-dev-border bg-dev-surface/40'

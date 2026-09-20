@@ -119,10 +119,17 @@ export const PipelineVisualizer: React.FC = () => {
 
         {/* Arrow 1: git add */}
         <div className="hidden md:flex absolute left-[24%] top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 flex-col items-center">
-          <div className="bg-dev-panel border border-dev-border px-1.5 py-0.5 rounded text-[10px] font-mono text-git-orange shadow-sm">
-            git add
-          </div>
-          <ArrowRight className="w-4 h-4 text-git-orange mt-0.5" />
+          {isZoneActive('staging') ? (
+            <div className="animate-packet-glide bg-git-orange/25 border border-git-orange text-git-orange px-2 py-0.5 rounded text-[10px] font-mono shadow-glow flex items-center gap-1">
+              <span>📄</span>
+              <span>git add</span>
+            </div>
+          ) : (
+            <div className="bg-dev-panel border border-dev-border px-1.5 py-0.5 rounded text-[10px] font-mono text-git-orange shadow-sm">
+              git add
+            </div>
+          )}
+          <ArrowRight className={`w-4 h-4 mt-0.5 ${isZoneActive('staging') ? 'text-git-orange animate-pulse' : 'text-git-orange'}`} />
         </div>
 
         {/* 2. STAGING AREA (INDEX) */}
@@ -176,10 +183,17 @@ export const PipelineVisualizer: React.FC = () => {
 
         {/* Arrow 2: git commit */}
         <div className="hidden md:flex absolute left-[49%] top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 flex-col items-center">
-          <div className="bg-dev-panel border border-dev-border px-1.5 py-0.5 rounded text-[10px] font-mono text-emerald-400 shadow-sm">
-            git commit
-          </div>
-          <ArrowRight className="w-4 h-4 text-emerald-400 mt-0.5" />
+          {isZoneActive('repo') ? (
+            <div className="animate-packet-glide bg-emerald-500/25 border border-emerald-400 text-emerald-300 px-2 py-0.5 rounded text-[10px] font-mono shadow-glow flex items-center gap-1">
+              <span>●</span>
+              <span>git commit</span>
+            </div>
+          ) : (
+            <div className="bg-dev-panel border border-dev-border px-1.5 py-0.5 rounded text-[10px] font-mono text-emerald-400 shadow-sm">
+              git commit
+            </div>
+          )}
+          <ArrowRight className={`w-4 h-4 mt-0.5 ${isZoneActive('repo') ? 'text-emerald-400 animate-pulse' : 'text-emerald-400'}`} />
         </div>
 
         {/* 3. LOCAL REPOSITORY (COMMITS) */}
@@ -230,10 +244,17 @@ export const PipelineVisualizer: React.FC = () => {
 
         {/* Arrow 3: git push */}
         <div className="hidden md:flex absolute left-[74%] top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 flex-col items-center">
-          <div className="bg-dev-panel border border-dev-border px-1.5 py-0.5 rounded text-[10px] font-mono text-blue-400 shadow-sm">
-            git push
-          </div>
-          <ArrowRight className="w-4 h-4 text-blue-400 mt-0.5" />
+          {isZoneActive('github') ? (
+            <div className="animate-packet-glide bg-purple-500/25 border border-purple-400 text-purple-300 px-2 py-0.5 rounded text-[10px] font-mono shadow-glow flex items-center gap-1">
+              <span>☁️</span>
+              <span>git push</span>
+            </div>
+          ) : (
+            <div className="bg-dev-panel border border-dev-border px-1.5 py-0.5 rounded text-[10px] font-mono text-blue-400 shadow-sm">
+              git push
+            </div>
+          )}
+          <ArrowRight className={`w-4 h-4 mt-0.5 ${isZoneActive('github') ? 'text-purple-400 animate-pulse' : 'text-blue-400'}`} />
         </div>
 
         {/* 4. GITHUB (REMOTE) */}

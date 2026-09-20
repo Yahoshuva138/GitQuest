@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { GitBranch, GitMerge, Plus, ArrowRightLeft, Trash2, CheckCircle2, Play } from 'lucide-react';
+import { GitBranch, GitMerge, Plus, ArrowRightLeft, Trash2, CheckCircle2, Play, Sparkles } from 'lucide-react';
 import { useGame } from '../../context/GameContext';
+import { CharacterAvatar } from '../Characters/CharacterAvatar';
+import { TEAM_CHARACTERS } from '../../data/characters';
 
 export const BranchVisualizer: React.FC = () => {
   const { repoState, executeCommand } = useGame();
@@ -43,14 +45,23 @@ export const BranchVisualizer: React.FC = () => {
 
   return (
     <div className="dev-panel p-4 bg-dev-panel border-dev-border shadow-panel space-y-4 font-mono text-xs">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-dev-border">
-        <div className="flex items-center gap-2">
-          <GitBranch className="w-4 h-4 text-git-blue" />
-          <h3 className="font-semibold text-xs text-dev-heading uppercase tracking-wider">
-            Branch Sandbox &amp; Graph Visualizer
-          </h3>
+      {/* Header with Arjun's Character Tip */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-dev-border">
+        <div className="flex items-center gap-3">
+          <CharacterAvatar character={TEAM_CHARACTERS['arjun']} size="md" mood="explaining" />
+          <div>
+            <div className="flex items-center gap-2">
+              <h3 className="font-semibold text-xs text-dev-heading uppercase tracking-wider">
+                Branch Sandbox &amp; Graph Visualizer
+              </h3>
+              <span className="text-[10px] text-blue-400 font-mono">· Arjun's Lab</span>
+            </div>
+            <p className="text-[11px] text-dev-subtext font-sans">
+              "Remember: creating a branch doesn't copy your files. It only creates a 41-byte pointer to the current commit!"
+            </p>
+          </div>
         </div>
-        <span className="text-[11px] text-dev-subtext">
+        <span className="text-[11px] text-dev-subtext shrink-0">
           Active HEAD: <span className="text-emerald-400 font-bold">{currentBranch}</span>
         </span>
       </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Home,
   Map,
@@ -13,9 +13,13 @@ import {
 } from 'lucide-react';
 import { useGame, TabType } from '../../context/GameContext';
 import { MISSIONS } from '../../data/missions';
+import { TeamRosterModal } from '../Characters/TeamRosterModal';
+import { CharacterAvatar } from '../Characters/CharacterAvatar';
+import { TEAM_CHARACTERS } from '../../data/characters';
 
 export const Sidebar: React.FC = () => {
   const { activeTab, setActiveTab, completedMissions, currentMission } = useGame();
+  const [isTeamModalOpen, setIsTeamModalOpen] = useState(false);
 
   const navItems: Array<{ id: TabType; label: string; icon: React.FC<{ className?: string }> }> = [
     { id: 'home', label: 'Home', icon: Home },
@@ -97,7 +101,30 @@ export const Sidebar: React.FC = () => {
             );
           })}
         </nav>
+
+        {/* Team Avatars Quick Dock */}
+        <div className="px-3 pt-3">
+          <button
+            onClick={() => setIsTeamModalOpen(true)}
+            className="w-full p-2.5 rounded-md bg-[#0D1219] border border-dev-border/70 hover:border-git-blue/50 text-left transition-all group"
+          >
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-[10px] font-mono uppercase text-dev-subtext group-hover:text-dev-heading">
+                Engineering Team
+              </span>
+              <span className="text-[9px] text-git-blue font-mono">View All &gt;</span>
+            </div>
+            <div className="flex items-center -space-x-1.5 overflow-hidden">
+              {Object.values(TEAM_CHARACTERS).map((member) => (
+                <CharacterAvatar key={member.id} character={member} size="sm" showStatus={false} />
+              ))}
+            </div>
+          </button>
+        </div>
       </div>
+
+      {/* Team Roster Modal */}
+      <TeamRosterModal isOpen={isTeamModalOpen} onClose={() => setIsTeamModalOpen(false)} />
 
       {/* Footer / Skill Progress */}
       <div className="p-4 border-t border-dev-border bg-dev-panel/50">
