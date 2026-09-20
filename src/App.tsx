@@ -70,16 +70,31 @@ const AppContent: React.FC = () => {
     }
   };
 
+  // Display sidebar on lab and practice views; full-width canvas on course and journey views
+  const isLabView = [
+    'missions',
+    'practice-lab',
+    'branch-lab',
+    'conflict-lab',
+    'github-lab',
+    'learning-map',
+    'progress',
+  ].includes(activeTab);
+
   return (
     <div className="flex flex-col min-h-screen bg-dev-bg text-dev-text selection:bg-dev-highlight selection:text-white">
       {/* Codédex Retro RPG Navigation Bar */}
       <CodexNavbar />
 
-      {/* Main Workspace Layout with Desktop Sidebar */}
+      {/* Main Workspace Layout with Desktop Sidebar on Lab Views */}
       <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
-        <Sidebar />
+        {isLabView && <Sidebar />}
 
-        <main className="flex-1 overflow-y-auto p-3 sm:p-5 lg:p-6 min-h-[calc(100vh-50px)]">
+        <main
+          className={`flex-1 overflow-y-auto min-h-[calc(100vh-50px)] ${
+            isLabView ? 'p-3 sm:p-5 lg:p-6' : 'p-3 sm:p-6 lg:p-8'
+          }`}
+        >
           {renderActiveView()}
         </main>
       </div>
