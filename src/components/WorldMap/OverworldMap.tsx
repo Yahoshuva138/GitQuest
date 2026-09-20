@@ -90,7 +90,7 @@ export const OverworldMap: React.FC = () => {
             <div className="flex items-center gap-2 mb-1">
               <span className="text-xl">🗺️</span>
               <span className="font-pixel text-xs text-rpg-gold tracking-widest uppercase">
-                Codédex Overworld
+                GitQuest Overworld
               </span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-pixel text-dev-heading tracking-wide">

@@ -2,13 +2,13 @@
 marp: true
 theme: default
 paginate: true
-header: 'GitQuest • Codédex Git & GitHub Curriculum'
+header: 'GitQuest • Git & GitHub Curriculum'
 footer: 'Chapter 09: Pull Requests'
 ---
 
 # 🤝 Chapter 09: Pull Requests & Code Reviews
 ### The Collaborative Heart of Software Teams
-**GitQuest RPG • A Codédex Adventure**
+**GitQuest RPG • A GitQuest Adventure**
 
 ---
 

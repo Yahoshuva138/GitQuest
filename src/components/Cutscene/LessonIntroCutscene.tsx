@@ -133,7 +133,7 @@ export const LessonIntroCutscene: React.FC<LessonIntroCutsceneProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col select-none animate-fadeIn overflow-hidden">
-      {/* 1. STAGE 1: RETRO 8-BIT INTRO SCREEN (Matching Codédex Screenshot) */}
+      {/* 1. STAGE 1: RETRO 8-BIT INTRO SCREEN (Matching GitQuest Aesthetic) */}
       {stage === 'intro' ? (
         <div
           onClick={handleAdvanceFromIntro}
@@ -165,11 +165,11 @@ export const LessonIntroCutscene: React.FC<LessonIntroCutsceneProps> = ({
               )}
             </button>
 
-            {/* Top-Center: 🪙 Codédex Logo */}
+            {/* Top-Center: 🪙 GitQuest Logo */}
             <div className="flex items-center gap-2">
               <span className="text-base animate-bounce">🪙</span>
               <span className="font-pixel text-sm sm:text-base text-white tracking-widest font-bold drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
-                Codédex
+                GitQuest
               </span>
             </div>
 
@@ -230,11 +230,11 @@ export const LessonIntroCutscene: React.FC<LessonIntroCutsceneProps> = ({
               )}
             </button>
 
-            {/* Top-Center: 🪙 Codédex Logo */}
+            {/* Top-Center: 🪙 GitQuest Logo */}
             <div className="flex items-center gap-2">
               <span className="text-base animate-bounce">🪙</span>
               <span className="font-pixel text-sm sm:text-base text-white tracking-widest font-bold drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
-                Codédex
+                GitQuest
               </span>
               <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-git-orange/30 text-git-orange border border-git-orange/40 font-bold hidden sm:inline">
                 GIT & GITHUB
@@ -255,7 +255,7 @@ export const LessonIntroCutscene: React.FC<LessonIntroCutsceneProps> = ({
           <div
             className="absolute inset-0 z-0 bg-cover bg-center transition-all duration-700"
             style={{
-              backgroundImage: 'url(/backgrounds/codedex_twilight_bridge.jpg)',
+              backgroundImage: 'url(/backgrounds/tokyo_twilight_bridge.jpg)',
             }}
           >
             {/* Atmospheric overlay for readability */}

@@ -53,7 +53,7 @@ interface GameContextType {
   isMissionCompleteModalOpen: boolean;
   hintsRevealed: number;
 
-  // RPG / Codédex Features
+  // RPG / GitQuest Features
   xp: number;
   level: number;
   coins: number;

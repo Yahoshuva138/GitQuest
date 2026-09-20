@@ -10,12 +10,12 @@ export interface BackgroundTheme {
 
 export const BACKGROUND_THEMES: BackgroundTheme[] = [
   {
-    id: 'codedex-twilight',
-    name: 'Codédex Twilight Bridge',
+    id: 'tokyo-twilight',
+    name: 'Tokyo Twilight Bridge',
     japanese: '『黄昏の東京タワー・桜橋』',
-    image: '/backgrounds/codedex_twilight_bridge.jpg',
+    image: '/backgrounds/tokyo_twilight_bridge.jpg',
     description: 'Anime sunset cityscape with glowing Tokyo Tower, bicycle rider on bridge, blooming sakura, and pastel clouds.',
-    tag: 'Codédex Iconic',
+    tag: 'Anime Twilight',
     defaultOpacity: 0.24,
   },
   {
@@ -96,7 +96,7 @@ export const BACKGROUND_THEMES: BackgroundTheme[] = [
  * Unique aesthetic wallpaper assigned to each individual page
  */
 export const PAGE_BACKGROUND_MAP: Record<string, string> = {
-  home: 'codedex-twilight',        // Codédex Twilight Bridge with Tokyo Tower & Sakura
+  home: 'tokyo-twilight',        // Tokyo Twilight Bridge with Tokyo Tower & Sakura
   'flow-guide': 'orbital-satellite', // Orbital Space Station for Local-to-Cloud Flow Guide
   missions: 'neo-tokyo',           // Neo-Tokyo Cyberpunk Git Engine
   'branch-lab': 'cosmic-void',     // Cosmic Branching Void

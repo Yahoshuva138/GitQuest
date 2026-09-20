@@ -99,7 +99,7 @@ const AppContent: React.FC = () => {
       {/* Dynamic Aesthetic Anime Cyberpunk Background */}
       <AestheticBackground />
 
-      {/* Codédex Retro RPG Navigation Bar */}
+      {/* GitQuest Retro RPG Navigation Bar */}
       <CodexNavbar />
 
       {/* Main Workspace Layout with Desktop Sidebar on Lab Views */}

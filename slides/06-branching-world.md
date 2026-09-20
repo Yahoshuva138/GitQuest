@@ -2,13 +2,13 @@
 marp: true
 theme: default
 paginate: true
-header: 'GitQuest • Codédex Git & GitHub Curriculum'
+header: 'GitQuest • Git & GitHub Curriculum'
 footer: 'Chapter 06: Branching in Git'
 ---
 
 # 🌿 Chapter 06: Branching & Parallel Timelines
 ### Isolated Feature Development Without Breaking Production
-**GitQuest RPG • A Codédex Adventure**
+**GitQuest RPG • A GitQuest Adventure**
 
 ---
 

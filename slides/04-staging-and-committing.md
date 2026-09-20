@@ -2,13 +2,13 @@
 marp: true
 theme: default
 paginate: true
-header: 'GitQuest • Codédex Git & GitHub Curriculum'
+header: 'GitQuest • Git & GitHub Curriculum'
 footer: 'Chapter 04: Staging and Committing'
 ---
 
 # 📸 Chapter 04: Staging & Two-Phase Commits
 ### Crafting Atomic, Intentional Snapshots
-**GitQuest RPG • A Codédex Adventure**
+**GitQuest RPG • A GitQuest Adventure**
 
 ---
 

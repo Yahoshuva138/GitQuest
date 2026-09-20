@@ -2,13 +2,13 @@
 marp: true
 theme: default
 paginate: true
-header: 'GitQuest • Codédex Git & GitHub Curriculum'
+header: 'GitQuest • Git & GitHub Curriculum'
 footer: 'Chapter 05: History and Diffs'
 ---
 
 # 🔍 Chapter 05: Inspecting History & Diffs
 ### Reading the Ledger with git log and git diff
-**GitQuest RPG • A Codédex Adventure**
+**GitQuest RPG • A GitQuest Adventure**
 
 ---
 

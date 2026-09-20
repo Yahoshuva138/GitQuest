@@ -2,13 +2,13 @@
 marp: true
 theme: default
 paginate: true
-header: 'GitQuest • Codédex Git & GitHub Curriculum'
+header: 'GitQuest • Git & GitHub Curriculum'
 footer: 'Chapter 03: Initializing Your First Repository'
 ---
 
 # 📦 Chapter 03: Initializing Your First Repository
 ### Turning Any Folder into a Living Version-Controlled Project
-**GitQuest RPG • A Codédex Adventure**
+**GitQuest RPG • A GitQuest Adventure**
 
 ---
 

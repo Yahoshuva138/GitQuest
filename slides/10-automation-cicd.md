@@ -2,13 +2,13 @@
 marp: true
 theme: default
 paginate: true
-header: 'GitQuest • Codédex Git & GitHub Curriculum'
+header: 'GitQuest • Git & GitHub Curriculum'
 footer: 'Chapter 10: CI/CD Pipelines with GitHub Actions'
 ---
 
 # ⚡ Chapter 10: CI/CD Pipelines with GitHub Actions
 ### Automated Sentinels, Test Runners, and Continuous Delivery
-**GitQuest RPG • A Codédex Adventure**
+**GitQuest RPG • A GitQuest Adventure**
 
 ---
 

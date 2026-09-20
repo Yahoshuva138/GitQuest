@@ -2,13 +2,13 @@
 marp: true
 theme: default
 paginate: true
-header: 'GitQuest • Codédex Git & GitHub Curriculum'
+header: 'GitQuest • Git & GitHub Curriculum'
 footer: 'Chapter 08: GitHub and Remotes'
 ---
 
 # ☁️ Chapter 08: Cloud Collaboration with GitHub
 ### Linking Local Repositories to the World with Remotes
-**GitQuest RPG • A Codédex Adventure**
+**GitQuest RPG • A GitQuest Adventure**
 
 ---
 

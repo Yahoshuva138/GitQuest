@@ -36,7 +36,8 @@ export const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = (
   });
 
   const [selectedThemeId, setSelectedThemeId] = useState<string>(() => {
-    return safeStorage.getItem('gitquest_bg_theme', 'codedex-twilight');
+    const saved = safeStorage.getItem('gitquest_bg_theme', 'tokyo-twilight');
+    return saved === 'codedex-twilight' ? 'tokyo-twilight' : saved;
   });
 
   const [opacity, setOpacity] = useState<number>(() => {
@@ -93,7 +94,7 @@ export const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = (
   };
 
   // Determine active theme on the current page
-  const currentPageThemeId = PAGE_BACKGROUND_MAP[activeTab] || 'codedex-twilight';
+  const currentPageThemeId = PAGE_BACKGROUND_MAP[activeTab] || 'tokyo-twilight';
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in select-none font-mono text-xs">
@@ -151,7 +152,7 @@ export const BackgroundSelectorModal: React.FC<BackgroundSelectorModalProps> = (
                 )}
               </div>
               <p className="text-[10.5px] text-dev-subtext mt-1 leading-snug">
-                Automatically switches to unique aesthetic anime wallpapers as you navigate (Codédex Twilight Bridge on Home, Neo-Tokyo on Build, Cosmic Void on Branches, etc.).
+                Automatically switches to unique aesthetic anime wallpapers as you navigate (Tokyo Twilight Bridge on Home, Neo-Tokyo on Build, Cosmic Void on Branches, etc.).
               </p>
             </div>
           </button>

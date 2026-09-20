@@ -16,7 +16,7 @@ export interface CourseChapter {
   exercises: CourseExercise[];
 }
 
-export const CODEX_COURSE: {
+export const GITQUEST_COURSE: {
   title: string;
   badge: string;
   description: string;
@@ -142,3 +142,6 @@ export const CODEX_COURSE: {
     },
   ],
 };
+
+// Backwards compatibility alias
+export const CODEX_COURSE = GITQUEST_COURSE;

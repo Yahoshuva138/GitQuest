@@ -236,7 +236,7 @@ export const GitIntroAnimation: React.FC<GitIntroAnimationProps> = ({
                 <span>『完全始動』• SYSTEM ONLINE</span>
               </div>
               <h1 className="text-4xl sm:text-6xl font-extrabold text-white font-sans tracking-tight drop-shadow-lg">
-                GitQuest <span className="text-git-orange">Codédex</span>
+                GitQuest <span className="text-git-orange">Academy</span>
               </h1>
               <p className="text-sm sm:text-base text-slate-200 font-sans max-w-md mx-auto leading-relaxed">
                 Master Git & GitHub through anime storytelling, branching time-travel, and hands-on terminal quests!

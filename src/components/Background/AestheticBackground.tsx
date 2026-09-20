@@ -15,7 +15,8 @@ export const AestheticBackground: React.FC = () => {
   });
 
   const [fixedThemeId, setFixedThemeId] = useState<string>(() => {
-    return safeStorage.getItem('gitquest_bg_theme', 'codedex-twilight');
+    const saved = safeStorage.getItem('gitquest_bg_theme', 'tokyo-twilight');
+    return saved === 'codedex-twilight' ? 'tokyo-twilight' : saved;
   });
 
   const [opacity, setOpacity] = useState<number>(() => {
@@ -31,7 +32,8 @@ export const AestheticBackground: React.FC = () => {
   useEffect(() => {
     const handleUpdate = () => {
       const savedMode = (safeStorage.getItem('gitquest_bg_mode', 'dynamic') as 'dynamic' | 'fixed') || 'dynamic';
-      const themeId = safeStorage.getItem('gitquest_bg_theme', 'codedex-twilight');
+      const savedThemeId = safeStorage.getItem('gitquest_bg_theme', 'tokyo-twilight');
+      const themeId = savedThemeId === 'codedex-twilight' ? 'tokyo-twilight' : savedThemeId;
       const op = parseFloat(safeStorage.getItem('gitquest_bg_opacity', '0.24')) || 0.24;
       const bl = parseInt(safeStorage.getItem('gitquest_bg_blur', '0'), 10) || 0;
       setMode(savedMode);
@@ -46,7 +48,7 @@ export const AestheticBackground: React.FC = () => {
 
   // Determine active theme based on dynamic page mapping or user fixed preference
   const targetThemeId = mode === 'dynamic' 
-    ? (PAGE_BACKGROUND_MAP[activeTab] || 'codedex-twilight')
+    ? (PAGE_BACKGROUND_MAP[activeTab] || 'tokyo-twilight')
     : fixedThemeId;
 
   const activeTheme =

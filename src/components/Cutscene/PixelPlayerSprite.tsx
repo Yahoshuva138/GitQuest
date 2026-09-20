@@ -7,7 +7,7 @@ interface PixelPlayerSpriteProps {
 
 /**
  * Authentic 8-bit / 16-bit retro RPG pixel art character
- * matching the Codédex intro screen aesthetic.
+ * matching the GitQuest intro screen aesthetic.
  */
 export const PixelPlayerSprite: React.FC<PixelPlayerSpriteProps> = ({
   className = '',

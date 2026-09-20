@@ -2,13 +2,13 @@
 marp: true
 theme: default
 paginate: true
-header: 'GitQuest • Codédex Git & GitHub Curriculum'
+header: 'GitQuest • Git & GitHub Curriculum'
 footer: 'Chapter 07: Merging and Conflicts'
 ---
 
 # ⚔️ Chapter 07: Merging & Conflict Resolution
 ### Fast-Forward, 3-Way Merges, and Decoding Conflict Markers
-**GitQuest RPG • A Codédex Adventure**
+**GitQuest RPG • A GitQuest Adventure**
 
 ---
 

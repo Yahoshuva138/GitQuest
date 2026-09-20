@@ -2,13 +2,13 @@
 marp: true
 theme: default
 paginate: true
-header: 'GitQuest • Codédex Git & GitHub Curriculum'
+header: 'GitQuest • Git & GitHub Curriculum'
 footer: 'Chapter 01: Introduction to Git & Version Control'
 ---
 
 # 🚀 Chapter 01: Welcome to Git & Version Control
 ### The Origin of Distributed Snapshots and Time-Traveling in Code
-**GitQuest RPG • A Codédex Adventure**
+**GitQuest RPG • A GitQuest Adventure**
 
 ---
 

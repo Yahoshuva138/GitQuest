@@ -52,7 +52,7 @@ export const CourseView: React.FC<CourseViewProps> = ({
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               <span className="font-pixel text-[10px] text-rpg-gold tracking-widest uppercase">
-                Codédex Curriculum
+                GitQuest Curriculum
               </span>
               <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-git-blue/20 text-git-blue border border-git-blue/40 font-bold">
                 10 CHAPTERS

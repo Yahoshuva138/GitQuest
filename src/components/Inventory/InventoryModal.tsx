@@ -231,7 +231,7 @@ export const InventoryModal: React.FC<InventoryModalProps> = ({ isOpen, onClose 
 
                     <div className="p-3 rounded-lg bg-dev-surface/40 border border-dev-border/40 space-y-1">
                       <span className="text-[10px] font-mono text-dev-subtext uppercase font-bold">
-                        Codédex Lore
+                        GitQuest Lore
                       </span>
                       <p className="text-xs text-dev-subtext italic">
                         {isUnlocked

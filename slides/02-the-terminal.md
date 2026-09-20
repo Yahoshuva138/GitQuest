@@ -2,13 +2,13 @@
 marp: true
 theme: default
 paginate: true
-header: 'GitQuest • Codédex Git & GitHub Curriculum'
-footer: 'Chapter 02: Command Line Fundamentals'
+header: 'GitQuest • Git & GitHub Curriculum'
+footer: 'Chapter 02: The Terminal & Navigation'
 ---
 
-# 💻 Chapter 02: Command Line Fundamentals
-### Navigating Directories and Files Like a Software Engineer
-**GitQuest RPG • A Codédex Adventure**
+# 💻 Chapter 02: The Command Line & Navigation
+### Mastering the Shell, Directories, and Paths
+**GitQuest RPG • A GitQuest Adventure**
 
 ---
 
