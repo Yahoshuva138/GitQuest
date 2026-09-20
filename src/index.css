@@ -205,3 +205,18 @@
 .anime-aura-purple {
   box-shadow: 0 0 20px rgba(192, 132, 252, 0.4), inset 0 0 20px rgba(192, 132, 252, 0.2);
 }
+
+/* 👾 Retro Pixel Sprite Walk Animation */
+@keyframes pixel-walk {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-pixel-walk {
+  animation: pixel-walk 0.6s infinite ease-in-out;
+}
+
