@@ -1,7 +1,8 @@
-import React from 'react';
-import { Trophy, CheckCircle2, ArrowRight, RotateCcw, Map } from 'lucide-react';
+import React, { useMemo } from 'react';
+import { Trophy, CheckCircle2, ArrowRight, RotateCcw, Map, Sparkles } from 'lucide-react';
 import { useGame } from '../../context/GameContext';
 import { MISSIONS } from '../../data/missions';
+import { ANIME_QUOTES } from '../../data/animeQuotes';
 
 export const MissionModal: React.FC = () => {
   const {
@@ -13,6 +14,13 @@ export const MissionModal: React.FC = () => {
     setActiveTab,
   } = useGame();
 
+  const animeQuote = useMemo(() => {
+    const hash = currentMission.id
+      .split('')
+      .reduce((acc, c) => acc + c.charCodeAt(0), 0);
+    return ANIME_QUOTES[hash % ANIME_QUOTES.length];
+  }, [currentMission.id]);
+
   if (!isMissionCompleteModalOpen) return null;
 
   const nextMission = currentMission.nextMissionId
@@ -21,7 +29,7 @@ export const MissionModal: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-stage-in">
-      <div className="dev-panel w-full max-w-md bg-[#121720] border-emerald-500/50 shadow-2xl p-6 space-y-5 font-mono">
+      <div className="dev-panel w-full max-w-md bg-[#121720] border-emerald-500/50 shadow-2xl p-6 space-y-4 font-mono">
         {/* Header */}
         <div className="text-center space-y-2">
           <div className="w-14 h-14 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto shadow-glow">
@@ -36,6 +44,23 @@ export const MissionModal: React.FC = () => {
           <p className="text-xs text-dev-subtext font-sans">
             {currentMission.subtitle}
           </p>
+        </div>
+
+        {/* Celebratory GOAT Anime Quote */}
+        <div className="p-3 rounded-lg bg-purple-950/40 border border-purple-500/40 relative overflow-hidden flex items-start gap-3">
+          <div className="text-2xl shrink-0 p-1.5 rounded-md bg-purple-900/60 border border-purple-400/40">
+            {animeQuote.avatar}
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 text-[10px] font-mono">
+              <span className="font-bold text-pink-300">{animeQuote.character}</span>
+              <span className="text-slate-400">•</span>
+              <span className="text-purple-300">{animeQuote.anime}</span>
+            </div>
+            <p className="text-xs italic text-slate-200 font-sans mt-0.5">
+              "{animeQuote.quote}"
+            </p>
+          </div>
         </div>
 
         {/* Takeaways */}

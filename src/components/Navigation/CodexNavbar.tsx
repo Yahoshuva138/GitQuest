@@ -39,6 +39,7 @@ export const CodexNavbar: React.FC = () => {
     toggleSound,
     playerTitle,
     openTermsModal,
+    openAuthModal,
   } = useGame();
 
   const [isInventoryOpen, setIsInventoryOpen] = useState(false);
@@ -196,16 +197,28 @@ export const CodexNavbar: React.FC = () => {
                 setIsProfileOpen(true);
               }}
               className="w-8 h-8 rounded-full bg-purple-600/30 border-2 border-purple-500/60 flex items-center justify-center text-sm shadow-sm hover:scale-105 transition-transform"
-              title="Edit Anime Profile & Character"
+              title="Edit Anime Character Profile"
             >
               <span>{character.avatar}</span>
             </button>
 
-            {/* Join Club Button - Matching reference image */}
+            {/* Account & Auth / Ninja Rank Button */}
             <button
               onClick={() => {
                 if (soundEnabled) playClickSound();
-                setIsGuildOpen(true);
+                openAuthModal();
+              }}
+              className="p-1.5 rounded-lg bg-dev-surface hover:bg-dev-border border border-dev-border text-dev-heading transition-all active:scale-95 flex items-center gap-1"
+              title="Developer Ninja Account & Auth"
+            >
+              <User className="w-4 h-4 text-purple-400" />
+            </button>
+
+            {/* Join Club Button - Opens Auth / Club Membership Modal */}
+            <button
+              onClick={() => {
+                if (soundEnabled) playClickSound();
+                openAuthModal();
               }}
               className="px-3.5 py-1.5 rounded-full bg-rpg-gold hover:bg-amber-400 text-black font-sans font-bold text-xs shadow-pixelGold active:scale-95 transition-all hidden sm:flex items-center gap-1"
             >

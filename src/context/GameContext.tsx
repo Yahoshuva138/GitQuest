@@ -15,7 +15,12 @@ import {
   playErrorSound,
   playLevelUpSound,
   playClickSound,
+  playMissionCompleteAnimeSound,
+  playNotificationSound,
+  playPowerUpSound,
+  playJutsuSound,
 } from '../utils/audio';
+import { NotificationItem } from '../components/Notifications/AnimeNotification';
 
 export type TabType =
   | 'home'
@@ -70,6 +75,14 @@ interface GameContextType {
   closeTopicCutscene: () => void;
   openTermsModal: () => void;
   closeTermsModal: () => void;
+
+  // Anime Notifications & Account Auth
+  notification: NotificationItem | null;
+  notify: (title: string, message: string, type?: NotificationItem['type'], icon?: string) => void;
+  dismissNotification: () => void;
+  isAuthModalOpen: boolean;
+  openAuthModal: () => void;
+  closeAuthModal: () => void;
 
   startMission: (missionId: string) => void;
   executeCommand: (commandString: string) => CommandResult;
@@ -130,6 +143,40 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const closeTermsModal = () => {
     setIsTermsOpen(false);
   };
+
+  // Anime Notification State
+  const [notification, setNotification] = useState<NotificationItem | null>(null);
+
+  const notify = (
+    title: string,
+    message: string,
+    type: NotificationItem['type'] = 'info',
+    icon?: string
+  ) => {
+    if (soundEnabled) {
+      if (type === 'level-up' || type === 'mission') {
+        playMissionCompleteAnimeSound();
+      } else {
+        playNotificationSound();
+      }
+    }
+    setNotification({
+      id: Math.random().toString(),
+      title,
+      message,
+      type,
+      icon,
+    });
+  };
+
+  const dismissNotification = () => {
+    setNotification(null);
+  };
+
+  // Account Auth Modal State
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const openAuthModal = () => setIsAuthModalOpen(true);
+  const closeAuthModal = () => setIsAuthModalOpen(false);
 
   // RPG Progression States
   const [xp, setXp] = useState<number>(() => {
@@ -277,7 +324,9 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const prevLevel = Math.floor(prev / 250) + 1;
       const nextLevel = Math.floor(nextXp / 250) + 1;
       if (nextLevel > prevLevel) {
-        playLevelUpSound(soundEnabled);
+        notify('LEVEL UP!', `You powered up to Level ${nextLevel}! New ninja title unlocked!`, 'level-up', '👑');
+      } else {
+        notify(`+${amount} XP GAINED`, 'Level progression surging!', 'xp', '✨');
       }
       return nextXp;
     });
@@ -461,7 +510,8 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
 
     setIsMissionCompleteModalOpen(true);
-    playSuccessSound(soundEnabled);
+    playMissionCompleteAnimeSound(soundEnabled);
+    notify('QUEST CONQUERED!', `Successfully cleared ${currentMission.title}!`, 'mission', '🏆');
 
     try {
       confetti({
@@ -568,6 +618,13 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
         closeTopicCutscene,
         openTermsModal,
         closeTermsModal,
+
+        notification,
+        notify,
+        dismissNotification,
+        isAuthModalOpen,
+        openAuthModal,
+        closeAuthModal,
 
         startMission,
         executeCommand,

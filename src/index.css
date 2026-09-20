@@ -148,3 +148,60 @@
   stroke-dasharray: 100;
   animation: branch-draw 1s ease-out forwards;
 }
+
+/* 🌸 Falling Sakura Petals Animation */
+@keyframes sakura-fall {
+  0% {
+    transform: translate(0, -10px) rotate(0deg) scale(0.8);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.9;
+  }
+  85% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(120px, 420px) rotate(360deg) scale(1.1);
+    opacity: 0;
+  }
+}
+
+.animate-sakura-1 {
+  animation: sakura-fall 6s ease-in-out infinite;
+}
+.animate-sakura-2 {
+  animation: sakura-fall 8s ease-in-out infinite 2s;
+}
+.animate-sakura-3 {
+  animation: sakura-fall 7s ease-in-out infinite 4s;
+}
+
+/* 💻 Hacker Terminal Scanlines */
+.hacker-scanline {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%,
+    rgba(0, 0, 0, 0.25) 50%
+  ),
+  linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.03),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.03)
+  );
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+}
+
+/* ⚡ Anime Power Aura Glows */
+.anime-aura-gold {
+  box-shadow: 0 0 15px rgba(251, 191, 36, 0.4), inset 0 0 15px rgba(251, 191, 36, 0.2);
+}
+
+.anime-aura-cyan {
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.4), inset 0 0 15px rgba(56, 189, 248, 0.2);
+}
+
+.anime-aura-purple {
+  box-shadow: 0 0 20px rgba(192, 132, 252, 0.4), inset 0 0 20px rgba(192, 132, 252, 0.2);
+}

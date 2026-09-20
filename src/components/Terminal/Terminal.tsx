@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { Terminal as TerminalIcon, CornerDownLeft, Trash2, ArrowUp, ArrowDown } from 'lucide-react';
 import { useGame } from '../../context/GameContext';
+import { playHackerTypingSound } from '../../utils/audio';
 
 interface TerminalProps {
   quickSuggestions?: string[];
@@ -13,7 +14,7 @@ export const Terminal: React.FC<TerminalProps> = ({
   placeholder = 'Type git command (e.g. git status)...',
   className = '',
 }) => {
-  const { repoState, commandHistory, executeCommand } = useGame();
+  const { repoState, commandHistory, executeCommand, soundEnabled } = useGame();
   const [inputVal, setInputVal] = useState('');
   const [historyIndex, setHistoryIndex] = useState<number | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -29,6 +30,9 @@ export const Terminal: React.FC<TerminalProps> = ({
   }, [commandHistory]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (soundEnabled && !['ArrowUp', 'ArrowDown', 'Enter', 'Tab'].includes(e.key)) {
+      playHackerTypingSound();
+    }
     // Arrow Up / Down for history
     if (e.key === 'ArrowUp') {
       e.preventDefault();
@@ -102,12 +106,14 @@ export const Terminal: React.FC<TerminalProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputVal.trim()) return;
+    if (soundEnabled) playHackerTypingSound();
     executeCommand(inputVal);
     setInputVal('');
     setHistoryIndex(null);
   };
 
   const handleSuggestionClick = (cmd: string) => {
+    if (soundEnabled) playHackerTypingSound();
     setInputVal(cmd);
     inputRef.current?.focus();
   };

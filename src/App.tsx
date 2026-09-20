@@ -16,6 +16,8 @@ import { CourseView } from './pages/CourseView';
 import { TermsModal } from './components/Legal/TermsModal';
 import { PresentationViewer } from './components/Presentation/PresentationViewer';
 import { LessonIntroCutscene } from './components/Cutscene/LessonIntroCutscene';
+import { AnimeNotification } from './components/Notifications/AnimeNotification';
+import { AuthModal } from './components/Auth/AuthModal';
 import { TOPICS_CURRICULUM } from './data/curriculum';
 
 const AppContent: React.FC = () => {
@@ -32,6 +34,10 @@ const AppContent: React.FC = () => {
     openTopicCutscene,
     closeTopicCutscene,
     closeTermsModal,
+    notification,
+    dismissNotification,
+    isAuthModalOpen,
+    closeAuthModal,
   } = useGame();
 
   const activeTopic =
@@ -123,6 +129,18 @@ const AppContent: React.FC = () => {
           startMission(mId);
           setActiveTab('missions');
         }}
+      />
+
+      {/* Anime Real-Time Notification Toast */}
+      <AnimeNotification
+        notification={notification}
+        onDismiss={dismissNotification}
+      />
+
+      {/* Developer Ninja Account & Auth Modal */}
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={closeAuthModal}
       />
 
       {/* Terms and Conditions Modal */}

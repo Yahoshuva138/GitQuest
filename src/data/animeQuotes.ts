@@ -1,0 +1,138 @@
+export interface AnimeQuote {
+  id: string;
+  anime: string;
+  character: string;
+  avatar: string;
+  japaneseTitle: string;
+  quote: string;
+  tag: 'motivation' | 'git' | 'debugging' | 'teamwork' | 'power';
+}
+
+export const ANIME_QUOTES: AnimeQuote[] = [
+  {
+    id: 'naruto-01',
+    anime: 'Naruto',
+    character: 'Naruto Uzumaki',
+    avatar: '🍥',
+    japaneseTitle: 'うずまきナルト',
+    quote: 'Believe it! My ninja way is to never go back on my code, and never give up on a merge conflict!',
+    tag: 'motivation',
+  },
+  {
+    id: 'naruto-02',
+    anime: 'Naruto',
+    character: 'Kakashi Hatake',
+    avatar: '⚡',
+    japaneseTitle: 'はたけカカシ',
+    quote: 'Those who break the coding standards are scum, but those who abandon their teammates in a broken build are worse than scum.',
+    tag: 'teamwork',
+  },
+  {
+    id: 'naruto-03',
+    anime: 'Naruto',
+    character: 'Rock Lee',
+    avatar: '🍃',
+    japaneseTitle: 'ロック・リー',
+    quote: 'A dropout will surpass a genius through sheer hard work and clean atomic git commits!',
+    tag: 'motivation',
+  },
+  {
+    id: 'naruto-04',
+    anime: 'Naruto',
+    character: 'Itachi Uchiha',
+    avatar: '👁️',
+    japaneseTitle: 'うちはイタチ',
+    quote: 'In this digital world, you must know your commit history to understand your present. That is why we run git log.',
+    tag: 'git',
+  },
+  {
+    id: 'onepiece-01',
+    anime: 'One Piece',
+    character: 'Monkey D. Luffy',
+    avatar: '🍖',
+    japaneseTitle: 'モンキー・D・ルフィ',
+    quote: "I'm gonna be the King of Open Source! Raise the anchor and set sail for origin/main!",
+    tag: 'motivation',
+  },
+  {
+    id: 'onepiece-02',
+    anime: 'One Piece',
+    character: 'Roronoa Zoro',
+    avatar: '⚔️',
+    japaneseTitle: 'ロロノア・ゾロ',
+    quote: "Scars on the commit history are a developer's shame. Keep your git rebase clean and linear.",
+    tag: 'git',
+  },
+  {
+    id: 'onepiece-03',
+    anime: 'One Piece',
+    character: 'Dr. Hiriluk',
+    avatar: '🌸',
+    japaneseTitle: 'Dr.ヒルルク',
+    quote: 'When does a project die? Not when the server stops, but when it is forgotten! As long as our code lives on GitHub, it is immortal!',
+    tag: 'motivation',
+  },
+  {
+    id: 'aot-01',
+    anime: 'Attack on Titan',
+    character: 'Eren Jaeger',
+    avatar: '🗝️',
+    japaneseTitle: 'エレン・イェーガー',
+    quote: "Tatakae! If you don't fight the merge conflict, you can't win! If you win, you ship. Fight. Tatakae!",
+    tag: 'power',
+  },
+  {
+    id: 'aot-02',
+    anime: 'Attack on Titan',
+    character: 'Levi Ackerman',
+    avatar: '🗡️',
+    japaneseTitle: 'リヴァイ・アッカーマン',
+    quote: "The only thing we're allowed to do is believe that we won't regret the choice we made when staging files.",
+    tag: 'debugging',
+  },
+  {
+    id: 'aot-03',
+    anime: 'Attack on Titan',
+    character: 'Erwin Smith',
+    avatar: '🐎',
+    japaneseTitle: 'エルヴィン・スミス',
+    quote: 'My soldiers, push! My soldiers, pull! My soldiers, commit! Dedicate your hearts to the main branch!',
+    tag: 'teamwork',
+  },
+  {
+    id: 'jjk-01',
+    anime: 'Jujutsu Kaisen',
+    character: 'Gojo Satoru',
+    avatar: '🕶️',
+    japaneseTitle: '五条悟',
+    quote: 'Domain Expansion: Infinite Staging Area! Throughout Heaven and Earth, I alone am the senior maintainer.',
+    tag: 'power',
+  },
+  {
+    id: 'dbz-01',
+    anime: 'Dragon Ball Z',
+    character: 'Vegeta',
+    avatar: '🔥',
+    japaneseTitle: 'ベジータ',
+    quote: "It's over 9000! His daily coding streak is over 9000! What kind of developer is this?!",
+    tag: 'power',
+  },
+  {
+    id: 'dbz-02',
+    anime: 'Dragon Ball Z',
+    character: 'Frieza',
+    avatar: '🪐',
+    japaneseTitle: 'フリーザ',
+    quote: "You fool! This isn't even my repository's final form! Haaaa!",
+    tag: 'power',
+  },
+  {
+    id: 'bleach-01',
+    anime: 'Bleach',
+    character: 'Ichigo Kurosaki',
+    avatar: '🗡️',
+    japaneseTitle: '黒崎一護',
+    quote: 'Bankai! Tensa Git-getsu! Cut through the merge conflict in a single strike!',
+    tag: 'power',
+  },
+];
